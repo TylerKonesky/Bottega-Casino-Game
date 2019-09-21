@@ -1,3 +1,5 @@
-import moment from "moment"
-
-console.log(moment.now())
+console.log("test")
+function display(){
+    return '<div>Hello World</div>'
+}
+display()
