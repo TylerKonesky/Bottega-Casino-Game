@@ -1,3 +1,15 @@
+// We are building a casino!
+// You are to build one casino game, black jack, slots, roulette, etc, ( these are the ones I have seen built out before.)
+// requirements
+// Build the game. *** Completed
+// Push individual commits to github. *** Completed
+// In addition,
+// the player will have a wallet, they can add money to the wallet, any winnings they get will be added to the wallet. ** Completed
+// If the wallet goes empty they must add more money or they have to stop playing.
+// They need to be able to stop playing and cash out the wallet at anytime. (bonus if the cash out proccess tells them if they made a profit or not)
+// let the player set the dollar/cents amount of the bet (in the game).
+// let them continue playing as long as they have money or decide to cash out.
+
 class Gambler{
     constructor(startingValue){
         this.startingValue = startingValue;
@@ -18,37 +30,59 @@ const playerOne = new Gambler(Number(prompt('Welcome Fella, please enter your in
 
 function whatToDo(){
     alert(`Welcome Player 1, your current balance is $${playerOne.currentValue}`)
-    const toDo = prompt("What would you like to do? 1: Check Balance, 2: Add Money, 3: Play the Slot Machine 4: Cash Out")
-    if(toDo == 1){
-        alert(`Your current balance is $${playerOne.currentValue}`)
-        whatToDo()
-    }else if(toDo == 2){
-        const addMoney = Number(prompt("How much would you like to add? (min $100)"))
-        if(addMoney >= 100){
-            playerOne.addFunds(addMoney)
+    if(playerOne.currentValue <= 4){
+        const newMoney = Number(prompt("You do not have enough money to keep playing. Please add more to coninue playing! (min $100)"))
+        if(newMoney >= 100){
+            playerOne.addFunds(newMondy)
             whatToDo()
         }else{
-            prompt("You must add at least $100 in order to deposit funds!")
-            whatToDo()
-        }   
-    }else if(toDo == 3){
-        rollSlots()
-        whatToDo()
-
-    }else if(toDo == 4){
-        if(playerOne.currentValue > playerOne.startingValue + playerOne.addedFunds){
-            alert(`Congratulations! You won a whopping total of $${playerOne.currentValue - (playerOne.startingValue + playerOne.addedFunds)} please come again soon!`)
-        }else if(playerOne.currentValue < playerOne.startingValue + playerOne.addedFunds){
-            alert(`We're sorry! You lost a whopping total of $${playerOne.currentValue - (playerOne.startingValue + playerOne.addedFunds)} please come again soon!`)
+            const lastCall = prompt("You must add more money! Press 1 to add more funds or press 2 to Cash out!")
+            if(lastCall == 1){
+                whatToDo()
+            }else if(lastCall == 2){
+                if(playerOne.currentValue > playerOne.startingValue + playerOne.addedFunds){
+                    alert(`Congratulations! You won a whopping total of $${playerOne.currentValue - (playerOne.startingValue + playerOne.addedFunds)} please come again soon!`)
+                    return("Game Over")
+                }else if(playerOne.currentValue < playerOne.startingValue + playerOne.addedFunds){
+                    alert(`We're sorry! You lost a whopping total of $${-1*(playerOne.currentValue - (playerOne.startingValue + playerOne.addedFunds))} please come again soon!`)
+                    return("Game Over")
+                }
+            }
         }
-
     }else{
-        alert("Invalid Selection")
-        whatToDo()
-    }
-    
+        const toDo = prompt("What would you like to do? 1: Check Balance, 2: Add Money, 3: Play the Slot Machine 4: Cash Out")
+        if(toDo == 1){
+            alert(`Your current balance is $${playerOne.currentValue}`)
+            whatToDo()
+        }else if(toDo == 2){
+            const addMoney = Number(prompt("How much would you like to add? (min $100)"))
+            if(addMoney >= 100){
+                playerOne.addFunds(addMoney)
+                whatToDo()
+            }else{
+                prompt("You must add at least $100 in order to deposit funds!")
+                whatToDo()
+            }   
+        }else if(toDo == 3){
+            rollSlots()
+            whatToDo()
 
+        }else if(toDo == 4){
+            if(playerOne.currentValue > playerOne.startingValue + playerOne.addedFunds){
+                alert(`Congratulations! You won a whopping total of $${playerOne.currentValue - (playerOne.startingValue + playerOne.addedFunds)} please come again soon!`)
+                return("Game Over")
+            }else if(playerOne.currentValue < playerOne.startingValue + playerOne.addedFunds){
+                alert(`We're sorry! You lost a whopping total of $${playerOne.currentValue - (playerOne.startingValue + playerOne.addedFunds)} please come again soon!`)
+                return("Game Over")
+            }
+
+        }else{
+            alert("Invalid Selection")
+            whatToDo()
+        }
+    }
 }
+    
 
 function rollSlots(){
     const bet = Number(prompt('How much would you like to wager?(Min of $5)'))
