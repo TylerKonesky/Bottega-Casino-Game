@@ -33,7 +33,7 @@ function whatToDo(){
     if(playerOne.currentValue <= 4){
         const newMoney = Number(prompt("You do not have enough money to keep playing. Please add more to coninue playing! (min $100)"))
         if(newMoney >= 100){
-            playerOne.addFunds(newMondy)
+            playerOne.addFunds(newMoney)
             whatToDo()
         }else{
             const lastCall = prompt("You must add more money! Press 1 to add more funds or press 2 to Cash out!")
@@ -88,6 +88,16 @@ function rollSlots(){
     const bet = Number(prompt('How much would you like to wager?(Min of $5)'))
     const winLose = ""
 
+    let slotImages = {
+        1: ' :) ',
+        2: ' # ', 
+        3: ' * ', 
+        4: ' & ', 
+        5: ' @ ',
+        6: ' % ',
+        7: ' 7 ' 
+    }
+
     if(bet <= playerOne.currentValue){
         if(bet >= 5){
             const row1 = Array.from({length: 3}, () => Math.ceil(Math.random() * 7));  
@@ -95,11 +105,11 @@ function rollSlots(){
             const row3 = Array.from({length: 3}, () => Math.ceil(Math.random() * 7));  
     
             const slot = `
-                        ${row1[0]}     ${row1[1]}     ${row1[2]}
+                        ${slotImages[row1[0]]}     ${slotImages[row1[1]]}     ${slotImages[row1[2]]}
 
-                        ${row2[0]}     ${row2[1]}     ${row2[2]}
+                        ${slotImages[row2[0]]}     ${slotImages[row2[1]]}     ${slotImages[row2[2]]}
 
-                        ${row3[0]}     ${row3[1]}     ${row3[2]}`
+                        ${slotImages[row3[0]]}     ${slotImages[row3[1]]}     ${slotImages[row3[2]]}`
 
             alert(slot)
     
